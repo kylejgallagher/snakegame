@@ -1,5 +1,4 @@
 import turtle
-from encodings.punycode import segregate
 from turtle import Turtle, Screen
 import time
 
@@ -21,11 +20,8 @@ class Snake:
 
     def create_snake(self):
         for position in STARTING_POSITIONS:
-            seg = Turtle('square')
-            seg.color('white')
-            seg.penup()
-            seg.goto(position)
-            self.segments.append(seg)
+            self.add_segment(position)
+
 
     def move(self):
         for seg_num in range(len(self.segments) - 1, 0, -1):
@@ -51,28 +47,14 @@ class Snake:
         if self.head.heading() != UP:
             self.head.setheading(DOWN)
 
+    def add_segment(self, position):
+        seg = Turtle('square')
+        seg.color('white')
+        seg.penup()
+        seg.goto(position)
+        self.segments.append(seg)
 
+    def extend(self):
+        self.add_segment(self.segments[-1].position())
 
-#
-# def move():
-#     play_game = True
-#     while play_game:
-#         screen.update()
-#         time.sleep(0.05)
-#         for seg_num in range(len(segments) - 1,0,-1):
-#             new_x = segments[seg_num - 1].xcor()
-#             new_y = segments[seg_num - 1].ycor()
-#             segments[seg_num].goto(new_x, new_y)
-#         segments[0].forward(20)
-#         def turn_right():
-#             segments[0].right(90)
-#         def turn_left():
-#             segments[0].left(90)
-#         # screen.onkey(key='Left', fun=turn_left)
-#         # screen.onkey(key='Right', fun=turn_right)
-#
-#         if segments[0].xcor() > 280 or segments[0].xcor() < -280:
-#             play_game = False
-#             screen.bye()
-#
 
