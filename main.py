@@ -7,8 +7,6 @@ from scoreboard import Scoreboard
 screen = Screen()
 screen.setup(600,600)
 
-score = 0
-
 screen.bgcolor('black')
 screen.title("Snake Game")
 screen.tracer(0)
@@ -31,9 +29,16 @@ while play_game:
 
     if snake.head.distance(food) < 15:
         scoreboard.increase_score()
+        snake.extend()
         food.refresh()
 
-    if snake.head.xcor() > 290 or snake.head.xcor() < -290 or snake.head.ycor() > 290 or snake.head.ycor() < -290:
+    if snake.head.xcor() > 280 or snake.head.xcor() < -280 or snake.head.ycor() > 280 or snake.head.ycor() < -280:
         play_game = False
+        scoreboard.game_over()
 
+    for segment in snake.segments[1:]:
+        if snake.head.distance(segment) < 10:
+            play_game = False
+            scoreboard.game_over()
 
+screen.exitonclick()
